@@ -54,12 +54,12 @@ const About = () => {
                   <h3 className="text-2xl font-bold mb-4">Hi, I'm Harsh 👋</h3>
                   <p className="text-lg text-muted-foreground leading-relaxed">
                     A developer who loves blending creativity and logic to craft smooth, 
-                    meaningful digital experiences. I'm always learning, building, and 
-                    sharing my journey through code.
+                    meaningful digital experiences. I enjoy motion design, responsive layouts, 
+                    and transforming ideas into delightful UIs.
                   </p>
                   <p className="text-lg text-muted-foreground leading-relaxed mt-4">
-                    When I'm not coding, you'll find me exploring new tech stacks, 
-                    contributing to open-source, or working on side projects that spark joy.
+                    I'm always learning, building, and sharing my journey through code — 
+                    turning complex problems into elegant solutions.
                   </p>
                 </div>
               </div>
