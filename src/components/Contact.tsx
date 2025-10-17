@@ -47,11 +47,11 @@ const Contact = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Get In <span className="text-gradient">Touch</span>
+            Let's Build <span className="text-gradient">Together</span> 💫
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6" />
           <p className="text-xl text-muted-foreground">
-            Let's create something amazing together
+            Ready to turn your ideas into reality? Reach out!
           </p>
         </motion.div>
 

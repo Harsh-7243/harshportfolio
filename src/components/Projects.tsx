@@ -73,8 +73,16 @@ const Projects = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ 
+                  y: -10,
+                  rotateX: 5,
+                  rotateY: 5,
+                  scale: 1.05,
+                  transition: { duration: 0.3 }
+                }}
+                style={{ transformStyle: "preserve-3d" }}
               >
-                <Card className="h-full glassmorphism border-primary/20 hover:border-primary/40 transition-all hover:scale-105 hover:shadow-lg hover:shadow-primary/20">
+                <Card className="h-full glassmorphism border-primary/20 hover:border-primary/40 transition-all hover:shadow-2xl hover:shadow-primary/30">
                   <CardHeader>
                     <CardTitle className="flex items-center justify-between">
                       <span className="truncate">{repo.name}</span>
