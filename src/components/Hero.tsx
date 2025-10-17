@@ -1,0 +1,156 @@
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Sparkles } from "lucide-react";
+
+const Hero = () => {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 bg-[var(--gradient-hero)] opacity-20" />
+      
+      {/* Floating orbs */}
+      <motion.div
+        className="absolute top-20 left-20 w-64 h-64 bg-primary/30 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        className="absolute bottom-20 right-20 w-96 h-96 bg-secondary/30 rounded-full blur-3xl"
+        animate={{
+          scale: [1.2, 1, 1.2],
+          opacity: [0.5, 0.3, 0.5],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
+      <div className="container relative z-10 px-4">
+        <div className="text-center space-y-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-4"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full glassmorphism mb-4"
+            >
+              <Sparkles className="w-4 h-4 text-primary" />
+              <span className="text-sm font-medium">Available for opportunities</span>
+            </motion.div>
+
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight">
+              <span className="block">Harsh Kumar</span>
+              <motion.span
+                className="block text-gradient mt-2"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.8 }}
+              >
+                Developer & Creator
+              </motion.span>
+            </h1>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+            className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto"
+          >
+            Turning ideas into interactive experiences
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          >
+            <Button
+              size="lg"
+              className="group text-base px-8 py-6 rounded-full"
+              asChild
+            >
+              <a href="#projects">
+                <Sparkles className="w-5 h-5 mr-2" />
+                View Projects
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="text-base px-8 py-6 rounded-full glassmorphism hover:scale-105 transition-transform"
+              asChild
+            >
+              <a href="https://linkedin.com/in/harsh-kumar-9a10152b7" target="_blank" rel="noopener noreferrer">
+                💼 Connect on LinkedIn
+              </a>
+            </Button>
+          </motion.div>
+
+          {/* Animated code snippet */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 1 }}
+            className="mt-16"
+          >
+            <div className="inline-block glassmorphism rounded-lg p-6 text-left max-w-md">
+              <pre className="text-sm text-primary font-mono">
+                <code>{`const developer = {
+  name: "Harsh Kumar",
+  passion: "Building digital magic",
+  status: "Always learning 🚀"
+};`}</code>
+              </pre>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        animate={{
+          y: [0, 10, 0],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        <div className="w-6 h-10 border-2 border-primary rounded-full flex justify-center">
+          <motion.div
+            className="w-1.5 h-2 bg-primary rounded-full mt-2"
+            animate={{
+              y: [0, 12, 0],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </div>
+      </motion.div>
+    </section>
+  );
+};
+
+export default Hero;
