@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { Code2, Heart, Zap, Download } from "lucide-react";
+import { useRef, useState } from "react";
+import { Code2, Heart, Zap, Download, Eye, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const About = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [showResumePreview, setShowResumePreview] = useState(false);
 
   const features = [
     {
@@ -62,25 +63,74 @@ const About = () => {
                     I'm always learning, building, and sharing my journey through code — 
                     turning complex problems into elegant solutions.
                   </p>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="mt-6"
-                  >
-                    <Button
-                      asChild
-                      size="lg"
-                      className="group rounded-full w-full sm:w-auto"
+                  <div className="flex flex-col sm:flex-row gap-3 mt-6">
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex-1"
                     >
-                      <a href="/RESUME.pdf" download="Harsh_Kumar_Resume.pdf">
-                        <Download className="w-5 h-5 mr-2 group-hover:animate-pulse" />
-                        Download Resume
-                      </a>
-                    </Button>
-                  </motion.div>
+                      <Button
+                        onClick={() => setShowResumePreview(true)}
+                        size="lg"
+                        variant="outline"
+                        className="group rounded-full w-full glassmorphism"
+                      >
+                        <Eye className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+                        Preview Resume
+                      </Button>
+                    </motion.div>
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex-1"
+                    >
+                      <Button
+                        asChild
+                        size="lg"
+                        className="group rounded-full w-full"
+                      >
+                        <a href="/RESUME.pdf" download="Harsh_Kumar_Resume.pdf">
+                          <Download className="w-5 h-5 mr-2 group-hover:animate-pulse" />
+                          Download Resume
+                        </a>
+                      </Button>
+                    </motion.div>
+                  </div>
                 </div>
               </div>
             </div>
+
+            {/* Resume Preview Modal */}
+            {showResumePreview && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-50 bg-background/95 backdrop-blur-sm flex items-center justify-center p-4"
+                onClick={() => setShowResumePreview(false)}
+              >
+                <button
+                  className="absolute top-4 right-4 p-2 rounded-full glassmorphism hover:bg-muted transition-colors"
+                  onClick={() => setShowResumePreview(false)}
+                >
+                  <X className="w-6 h-6" />
+                </button>
+                <motion.div
+                  initial={{ scale: 0.8 }}
+                  animate={{ scale: 1 }}
+                  className="max-w-4xl w-full max-h-[90vh] glassmorphism rounded-2xl p-2 overflow-hidden"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="bg-background rounded-xl overflow-auto max-h-[85vh]">
+                    <iframe
+                      src="/RESUME.pdf#toolbar=0"
+                      className="w-full h-[80vh] border-0"
+                      title="Resume Preview Modal"
+                    />
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
 
             {/* Features for mobile - shown below bio on mobile */}
             <div className="lg:hidden space-y-4">
