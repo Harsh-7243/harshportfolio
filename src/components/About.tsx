@@ -41,7 +41,7 @@ const About = () => {
           <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto" />
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-start">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
@@ -51,14 +51,14 @@ const About = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl blur-2xl opacity-20" />
               <div className="relative glassmorphism rounded-2xl p-1">
-                <div className="bg-background rounded-xl p-8">
-                  <h3 className="text-2xl font-bold mb-4">Hi, I'm Harsh 👋</h3>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
+                <div className="bg-background rounded-xl p-6 md:p-8">
+                  <h3 className="text-xl md:text-2xl font-bold mb-4">Hi, I'm Harsh 👋</h3>
+                  <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
                     A developer who loves blending creativity and logic to craft smooth, 
                     meaningful digital experiences. I enjoy motion design, responsive layouts, 
                     and transforming ideas into delightful UIs.
                   </p>
-                  <p className="text-lg text-muted-foreground leading-relaxed mt-4">
+                  <p className="text-base md:text-lg text-muted-foreground leading-relaxed mt-4">
                     I'm always learning, building, and sharing my journey through code — 
                     turning complex problems into elegant solutions.
                   </p>
@@ -70,7 +70,7 @@ const About = () => {
                     <Button
                       asChild
                       size="lg"
-                      className="group rounded-full"
+                      className="group rounded-full w-full sm:w-auto"
                     >
                       <a href="/RESUME.pdf" download="Harsh_Kumar_Resume.pdf">
                         <Download className="w-5 h-5 mr-2 group-hover:animate-pulse" />
@@ -81,32 +81,57 @@ const About = () => {
                 </div>
               </div>
             </div>
+
+            {/* Features for mobile - shown below bio on mobile */}
+            <div className="lg:hidden space-y-4">
+              {features.map((feature, index) => (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+                  className="glassmorphism rounded-xl p-4 md:p-6 hover:scale-105 transition-transform"
+                >
+                  <div className="flex items-start gap-3 md:gap-4">
+                    <div className="p-2 md:p-3 rounded-lg bg-gradient-to-br from-primary to-secondary flex-shrink-0">
+                      <feature.icon className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="text-lg md:text-xl font-semibold mb-1 md:mb-2">{feature.title}</h4>
+                      <p className="text-sm md:text-base text-muted-foreground">{feature.description}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="glassmorphism rounded-2xl p-1 overflow-hidden"
+            className="glassmorphism rounded-2xl p-1 overflow-hidden order-first lg:order-last"
           >
             <div className="bg-background rounded-xl overflow-hidden">
-              <div className="relative w-full h-[500px]">
+              <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px]">
                 <iframe
-                  src="/RESUME.pdf"
-                  className="w-full h-full"
+                  src="/RESUME.pdf#toolbar=0"
+                  className="w-full h-full border-0"
                   title="Resume Preview"
+                  loading="lazy"
                 />
               </div>
             </div>
           </motion.div>
         </div>
 
-        <div className="mt-16">
+        {/* Features for desktop - shown below on desktop */}
+        <div className="mt-12 md:mt-16 hidden lg:block">
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+            initial={{ opacity: 0, y: 50 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="space-y-6"
+            className="grid md:grid-cols-3 gap-6"
           >
             {features.map((feature, index) => (
               <motion.div
@@ -116,7 +141,7 @@ const About = () => {
                 transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
                 className="glassmorphism rounded-xl p-6 hover:scale-105 transition-transform"
               >
-                <div className="flex items-start gap-4">
+                <div className="flex flex-col items-center text-center gap-4">
                   <div className="p-3 rounded-lg bg-gradient-to-br from-primary to-secondary">
                     <feature.icon className="w-6 h-6 text-white" />
                   </div>

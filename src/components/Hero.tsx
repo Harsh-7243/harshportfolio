@@ -52,7 +52,7 @@ const Hero = () => {
               <span className="text-sm font-medium">Available for opportunities</span>
             </motion.div>
 
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight px-4">
               <span className="block">Harsh Kumar</span>
               <motion.span
                 className="block text-gradient mt-2"
@@ -69,7 +69,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto"
+            className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto px-4"
           >
             Turning ideas into interactive experiences
           </motion.p>
@@ -82,19 +82,19 @@ const Hero = () => {
           >
             <Button
               size="lg"
-              className="group text-base px-8 py-6 rounded-full"
+              className="group text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6 rounded-full w-full sm:w-auto"
               asChild
             >
               <a href="#projects">
-                <Sparkles className="w-5 h-5 mr-2" />
+                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                 View Projects
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </a>
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="text-base px-8 py-6 rounded-full glassmorphism hover:scale-105 transition-transform"
+              className="text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6 rounded-full glassmorphism hover:scale-105 transition-transform w-full sm:w-auto"
               asChild
             >
               <a href="https://linkedin.com/in/harsh-kumar-9a10152b7" target="_blank" rel="noopener noreferrer">
@@ -108,14 +108,14 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 1 }}
-            className="mt-16"
+            className="mt-12 sm:mt-16"
           >
-            <div className="inline-block glassmorphism rounded-lg p-6 text-left max-w-md">
-              <pre className="text-sm text-primary font-mono">
+            <div className="inline-block glassmorphism rounded-lg p-4 sm:p-6 text-left max-w-md mx-4">
+              <pre className="text-xs sm:text-sm text-primary font-mono overflow-x-auto">
                 <code>{`const developer = {
   name: "Harsh Kumar",
-  passion: "Building digital magic",
-  status: "Always learning 🚀"
+  passion: "Building magic",
+  status: "Learning 🚀"
 };`}</code>
               </pre>
             </div>
