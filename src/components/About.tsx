@@ -156,23 +156,6 @@ const About = () => {
             </div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="glassmorphism rounded-2xl p-1 overflow-hidden order-first lg:order-last"
-          >
-            <div className="bg-background rounded-xl overflow-hidden">
-              <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px]">
-                <iframe
-                  src="/RESUME.pdf#toolbar=0"
-                  className="w-full h-full border-0"
-                  title="Resume Preview"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-          </motion.div>
         </div>
 
         {/* Features for desktop - shown below on desktop */}
