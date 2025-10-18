@@ -38,8 +38,8 @@ const Contact = () => {
     },
     {
       icon: Mail,
-      label: "Email",
-      href: "mailto:harsh@example.com",
+      label: "harshkumar72435@gmail.com",
+      href: "mailto:harshkumar72435@gmail.com",
       gradient: "from-orange-500 to-red-500",
     },
   ];

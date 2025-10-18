@@ -84,6 +84,25 @@ const About = () => {
           </motion.div>
 
           <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="glassmorphism rounded-2xl p-1 overflow-hidden"
+          >
+            <div className="bg-background rounded-xl overflow-hidden">
+              <div className="relative w-full h-[500px]">
+                <iframe
+                  src="/RESUME.pdf"
+                  className="w-full h-full"
+                  title="Resume Preview"
+                />
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        <div className="mt-16">
+          <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
             transition={{ duration: 0.8, delay: 0.4 }}
