@@ -36,21 +36,6 @@ const Hero = () => {
 
       <div className="container relative z-10 px-4">
         <div className="text-center space-y-8">
-          {/* Avatar with HK initials */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="flex justify-center mb-8"
-          >
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-accent rounded-full blur-lg opacity-70 animate-pulse" />
-              <div className="relative w-24 h-24 rounded-full glassmorphism border-2 border-primary/50 flex items-center justify-center">
-                <span className="text-3xl font-bold text-gradient">HK</span>
-              </div>
-            </div>
-          </motion.div>
-
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

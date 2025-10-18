@@ -57,7 +57,7 @@ const Gallery = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Project <span className="text-gradient">Gallery</span>
+            <span className="text-gradient">Gallery</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6" />
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
