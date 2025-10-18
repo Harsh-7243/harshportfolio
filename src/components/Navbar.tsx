@@ -1,6 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Moon, Sun, Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 interface NavbarProps {
@@ -26,27 +25,27 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-5xl"
+        className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50"
       >
-        <div className="glassmorphism rounded-full px-6 py-3 shadow-xl backdrop-blur-xl">
-          <div className="flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <motion.a
               href="#"
-              className="text-xl font-bold text-gradient"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              className="text-2xl font-bold bg-gradient-to-r from-primary via-purple-500 to-secondary bg-clip-text text-transparent"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               HK
             </motion.a>
-            
+
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-1">
               {navItems.map((item, index) => (
                 <motion.a
                   key={item.name}
                   href={item.href}
-                  className="text-sm font-medium relative group"
+                  className="relative px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors group"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
@@ -54,10 +53,10 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
-                  <motion.span 
-                    className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-primary to-secondary"
-                    initial={{ width: 0 }}
-                    whileHover={{ width: "100%" }}
+                  <motion.span
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-secondary rounded-full"
+                    initial={{ scaleX: 0 }}
+                    whileHover={{ scaleX: 1 }}
                     transition={{ duration: 0.3 }}
                   />
                 </motion.a>
@@ -66,75 +65,67 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
 
             {/* Theme Toggle & Mobile Menu */}
             <div className="flex items-center gap-2">
-              <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={toggleTheme}
-                  className="rounded-full relative overflow-hidden group"
-                >
-                  <AnimatePresence mode="wait">
-                    {isDark ? (
-                      <motion.div
-                        key="sun"
-                        initial={{ rotate: -90, scale: 0 }}
-                        animate={{ rotate: 0, scale: 1 }}
-                        exit={{ rotate: 90, scale: 0 }}
-                        transition={{ duration: 0.4, ease: "easeInOut" }}
-                      >
-                        <Sun className="h-5 w-5 text-yellow-500" />
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="moon"
-                        initial={{ rotate: 90, scale: 0 }}
-                        animate={{ rotate: 0, scale: 1 }}
-                        exit={{ rotate: -90, scale: 0 }}
-                        transition={{ duration: 0.4, ease: "easeInOut" }}
-                      >
-                        <Moon className="h-5 w-5 text-blue-600" />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </Button>
-              </motion.div>
-
-              <motion.div 
-                className="md:hidden"
-                whileHover={{ scale: 1.1 }} 
+              <motion.button
+                onClick={toggleTheme}
+                className="p-2 rounded-full hover:bg-accent transition-colors"
+                whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setIsOpen(!isOpen)}
-                  className="rounded-full"
-                >
-                  <AnimatePresence mode="wait">
-                    {isOpen ? (
-                      <motion.div
-                        key="close"
-                        initial={{ rotate: -90, scale: 0 }}
-                        animate={{ rotate: 0, scale: 1 }}
-                        exit={{ rotate: 90, scale: 0 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <X className="h-5 w-5" />
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="menu"
-                        initial={{ rotate: 90, scale: 0 }}
-                        animate={{ rotate: 0, scale: 1 }}
-                        exit={{ rotate: -90, scale: 0 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <Menu className="h-5 w-5" />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </Button>
-              </motion.div>
+                <AnimatePresence mode="wait">
+                  {isDark ? (
+                    <motion.div
+                      key="sun"
+                      initial={{ rotate: -90, scale: 0, opacity: 0 }}
+                      animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                      exit={{ rotate: 90, scale: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                    >
+                      <Sun className="h-5 w-5 text-yellow-500" />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="moon"
+                      initial={{ rotate: 90, scale: 0, opacity: 0 }}
+                      animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                      exit={{ rotate: -90, scale: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                    >
+                      <Moon className="h-5 w-5 text-blue-600" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.button>
+
+              <motion.button
+                onClick={() => setIsOpen(!isOpen)}
+                className="md:hidden p-2 rounded-full hover:bg-accent transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <AnimatePresence mode="wait">
+                  {isOpen ? (
+                    <motion.div
+                      key="close"
+                      initial={{ rotate: -90, scale: 0 }}
+                      animate={{ rotate: 0, scale: 1 }}
+                      exit={{ rotate: 90, scale: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <X className="h-5 w-5" />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="menu"
+                      initial={{ rotate: 90, scale: 0 }}
+                      animate={{ rotate: 0, scale: 1 }}
+                      exit={{ rotate: -90, scale: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Menu className="h-5 w-5" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.button>
             </div>
           </div>
         </div>
@@ -144,24 +135,23 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="fixed top-20 left-1/2 -translate-x-1/2 z-40 w-[90%] max-w-md md:hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="fixed top-16 left-0 right-0 z-40 md:hidden bg-background/95 backdrop-blur-lg border-b border-border/50"
           >
-            <div className="glassmorphism rounded-2xl p-6 shadow-2xl backdrop-blur-xl">
-              <div className="flex flex-col gap-2">
+            <div className="max-w-7xl mx-auto px-4 py-4">
+              <div className="flex flex-col gap-1">
                 {navItems.map((item, index) => (
                   <motion.a
                     key={item.name}
                     href={item.href}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05, duration: 0.3 }}
-                    whileHover={{ x: 5, backgroundColor: "hsl(var(--primary) / 0.1)" }}
+                    transition={{ delay: index * 0.05 }}
                     whileTap={{ scale: 0.98 }}
-                    className="text-lg font-medium py-3 px-4 rounded-xl transition-colors"
+                    className="px-4 py-3 text-base font-medium text-foreground/80 hover:text-foreground hover:bg-accent rounded-lg transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     {item.name}
