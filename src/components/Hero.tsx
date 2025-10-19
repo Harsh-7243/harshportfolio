@@ -4,13 +4,13 @@ import { ArrowRight, Sparkles } from "lucide-react";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8">
       {/* Animated gradient background */}
       <div className="absolute inset-0 bg-[var(--gradient-hero)] opacity-20" />
       
-      {/* Floating orbs */}
+      {/* Floating orbs - Responsive positioning and sizing */}
       <motion.div
-        className="absolute top-20 left-20 w-64 h-64 bg-primary/30 rounded-full blur-3xl"
+        className="absolute top-10 left-10 w-40 h-40 sm:top-20 sm:left-20 sm:w-64 sm:h-64 bg-primary/30 rounded-full blur-xl sm:blur-3xl"
         animate={{
           scale: [1, 1.2, 1],
           opacity: [0.3, 0.5, 0.3],
@@ -22,7 +22,7 @@ const Hero = () => {
         }}
       />
       <motion.div
-        className="absolute bottom-20 right-20 w-96 h-96 bg-secondary/30 rounded-full blur-3xl"
+        className="absolute -bottom-10 -right-10 w-48 h-48 sm:bottom-20 sm:right-20 sm:w-72 sm:h-72 md:w-96 md:h-96 bg-secondary/30 rounded-full blur-xl sm:blur-3xl"
         animate={{
           scale: [1.2, 1, 1.2],
           opacity: [0.5, 0.3, 0.5],
@@ -34,7 +34,7 @@ const Hero = () => {
         }}
       />
 
-      <div className="container relative z-10 px-4">
+      <div className="w-full max-w-6xl mx-auto relative z-10">
         <div className="text-center space-y-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -52,7 +52,7 @@ const Hero = () => {
               <span className="text-sm font-medium">Available for opportunities</span>
             </motion.div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight px-4">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight px-2 sm:px-4">
               <span className="block">Harsh Kumar</span>
               <motion.span
                 className="block text-gradient mt-2"
@@ -69,7 +69,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto px-4"
+            className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-2 sm:px-4"
           >
             Turning ideas into interactive experiences
           </motion.p>
@@ -82,7 +82,7 @@ const Hero = () => {
           >
             <Button
               size="lg"
-              className="group text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6 rounded-full w-full sm:w-auto"
+              className="group text-sm sm:text-base px-4 sm:px-6 py-3 sm:py-4 md:py-5 rounded-full w-full sm:w-auto"
               asChild
             >
               <a href="#projects">
@@ -94,7 +94,7 @@ const Hero = () => {
             <Button
               size="lg"
               variant="outline"
-              className="text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6 rounded-full glassmorphism hover:scale-105 transition-transform w-full sm:w-auto"
+              className="text-sm sm:text-base px-4 sm:px-6 py-3 sm:py-4 md:py-5 rounded-full glassmorphism hover:scale-105 transition-transform w-full sm:w-auto"
               asChild
             >
               <a href="https://linkedin.com/in/harsh-kumar-9a10152b7" target="_blank" rel="noopener noreferrer">
@@ -110,8 +110,8 @@ const Hero = () => {
             transition={{ delay: 1, duration: 1 }}
             className="mt-12 sm:mt-16"
           >
-            <div className="inline-block glassmorphism rounded-lg p-4 sm:p-6 text-left max-w-md mx-4">
-              <pre className="text-xs sm:text-sm text-primary font-mono overflow-x-auto">
+            <div className="inline-block glassmorphism rounded-lg p-3 sm:p-4 md:p-6 text-left w-full max-w-md mx-auto">
+              <pre className="text-[10px] xs:text-xs sm:text-sm text-primary font-mono overflow-x-auto">
                 <code>{`const developer = {
   name: "Harsh Kumar",
   passion: "Building magic",
@@ -123,9 +123,9 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator - Only show on larger screens */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="hidden sm:block absolute bottom-8 left-1/2 -translate-x-1/2"
         animate={{
           y: [0, 10, 0],
         }}
