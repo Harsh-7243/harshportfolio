@@ -1,29 +1,88 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
-import { Github, Linkedin, Mail, Send, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { useRef, useState, FormEvent } from "react";
+import { Github, Linkedin, Mail, Send, Sparkles, Loader2 } from "lucide-react";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
 import { toast } from "sonner";
+import emailjs from '@emailjs/browser';
+
+// Load environment variables
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+// Type definitions
+interface FormData {
+  name: string;
+  email: string;
+  message: string;
+}
+
+interface SocialLink {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  href: string;
+  gradient: string;
+}
 
 const Contact = () => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast.success("Message sent! 🚀 I'll get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
+    
+    // Validate environment variables
+    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+      console.error('EmailJS environment variables are not properly configured.');
+      toast.error("Service is currently unavailable. Please try again later.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name.trim(),
+          from_email: formData.email.trim(),
+          to_email: 'srivastavaharsh1108@gmail.com',
+          message: formData.message.trim(),
+          reply_to: formData.email.trim()
+        },
+        EMAILJS_PUBLIC_KEY
+      );
+      
+      toast.success("Message sent! 🚀 I'll get back to you soon.");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error('Error sending email:', error);
+      toast.error("Failed to send message. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const socialLinks = [
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const socialLinks: SocialLink[] = [
     {
       icon: Github,
       label: "GitHub",
@@ -38,8 +97,8 @@ const Contact = () => {
     },
     {
       icon: Mail,
-      label: "harshkumar72435@gmail.com",
-      href: "mailto:harshkumar72435@gmail.com",
+      label: "srivastavaharsh1108@gmail.com",
+      href: "mailto:srivastavaharsh1108@gmail.com",
       gradient: "from-orange-500 to-red-500",
     },
   ];
@@ -83,10 +142,9 @@ const Contact = () => {
                 <div className="relative">
                   <Input
                     placeholder=" "
+                    name="name"
                     value={formData.name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
+                    onChange={handleInputChange}
                     onFocus={() => setFocusedField("name")}
                     onBlur={() => setFocusedField(null)}
                     className="bg-background/50 peer pt-6"
@@ -100,10 +158,9 @@ const Contact = () => {
                   <Input
                     type="email"
                     placeholder=" "
+                    name="email"
                     value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
+                    onChange={handleInputChange}
                     onFocus={() => setFocusedField("email")}
                     onBlur={() => setFocusedField(null)}
                     className="bg-background/50 peer pt-6"
@@ -116,10 +173,9 @@ const Contact = () => {
                 <div className="relative">
                   <Textarea
                     placeholder=" "
+                    name="message"
                     value={formData.message}
-                    onChange={(e) =>
-                      setFormData({ ...formData, message: e.target.value })
-                    }
+                    onChange={handleInputChange}
                     onFocus={() => setFocusedField("message")}
                     onBlur={() => setFocusedField(null)}
                     className="bg-background/50 min-h-[150px] peer pt-6"
@@ -134,16 +190,26 @@ const Contact = () => {
                     type="submit"
                     className="w-full group relative overflow-hidden"
                     size="lg"
+                    disabled={isSubmitting}
                   >
                     <motion.div
                       className="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-accent"
-                      initial={{ x: "-100%" }}
-                      whileHover={{ x: "100%" }}
-                      transition={{ duration: 0.5 }}
+                      initial={{ x: isSubmitting ? "0%" : "-100%" }}
+                      animate={{ x: isSubmitting ? "100%" : "-100%" }}
+                      transition={{ duration: 2, repeat: isSubmitting ? Infinity : 0, ease: "linear" }}
                     />
                     <span className="relative z-10 flex items-center justify-center">
-                      Send Message
-                      <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 group-hover:rotate-45 transition-all" />
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          Send Message
+                          <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 group-hover:rotate-45 transition-all" />
+                        </>
+                      )}
                     </span>
                   </Button>
                 </motion.div>

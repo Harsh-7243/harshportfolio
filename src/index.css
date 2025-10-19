@@ -2,12 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global styles to prevent horizontal scrolling */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
+    /* Ensure no content overflows the viewport */
+    --max-w-container: 100vw;
+    --padding-container: 1rem;
+    
+    @media (min-width: 640px) {
+      --padding-container: 1.5rem;
+    }
+    
+    @media (min-width: 1024px) {
+      --max-w-container: 1200px;
+    }
     --background: 0 0% 100%;
     --foreground: 220 80% 10%;
 
@@ -37,6 +61,22 @@ All colors MUST be HSL.
     --ring: 210 100% 50%;
 
     --radius: 0.75rem;
+    
+    /* Ensure all containers respect the max width */
+    .container {
+      width: 100%;
+      max-width: var(--max-w-container);
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: var(--padding-container);
+      padding-right: var(--padding-container);
+    }
+    
+    /* Prevent horizontal overflow in text containers */
+    p, h1, h2, h3, h4, h5, h6, span, a, li {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
 
     /* Custom portfolio colors */
     --navy: 220 80% 15%;

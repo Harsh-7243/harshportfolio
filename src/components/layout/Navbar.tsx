@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Moon, Sun, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface NavbarProps {
   isDark: boolean;
@@ -9,6 +9,7 @@ interface NavbarProps {
 
 const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const navItems = [
     { name: "Home", href: "#" },
@@ -19,16 +20,27 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
     { name: "Contact", href: "#contact" },
   ];
 
+  // Handle scroll effect for navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <>
       <motion.nav
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40 shadow-sm supports-[backdrop-filter]:bg-background/60"
+        className={`fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40 shadow-sm supports-[backdrop-filter]:bg-background/60 transition-all duration-300 overflow-x-hidden ${
+          isScrolled ? 'py-0' : 'py-1'
+        }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
-          <div className="flex items-center h-14 sm:h-16 relative">
+          <div className="flex items-center h-14 sm:h-16 relative px-2 sm:px-0">
             {/* Logo */}
             <motion.div className="flex items-center">
               <motion.a
@@ -45,9 +57,8 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
             <div className="hidden md:flex items-center justify-center flex-1 space-x-1.5">
               {navItems.map((item) => (
                 <a
-                  key={item.name}
                   href={item.href}
-                  className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-accent/50 rounded-lg transition-colors"
+                  className="px-3 py-2.5 text-sm sm:text-base font-medium text-foreground/90 hover:text-foreground hover:bg-accent/50 rounded-lg transition-colors active:bg-accent/70"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
@@ -59,7 +70,7 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
             <div className="flex items-center gap-2 sm:gap-3 ml-auto">
               <motion.button
                 onClick={toggleTheme}
-                className="p-1.5 sm:p-2 rounded-full hover:bg-accent transition-colors flex-shrink-0"
+                className="p-2.5 sm:p-2 rounded-full hover:bg-accent transition-colors flex-shrink-0"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 aria-label="Toggle theme"
@@ -91,11 +102,11 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
 
               <motion.button
                 onClick={() => setIsOpen(!isOpen)}
-                className="md:hidden p-2 -mr-1.5 rounded-lg hover:bg-accent/50 transition-colors flex items-center justify-center relative z-50"
+                className="md:hidden p-2.5 -mr-1.5 rounded-lg hover:bg-accent/50 transition-colors flex items-center justify-center relative z-50"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label={isOpen ? 'Close menu' : 'Open menu'}
-                style={{ width: '2.5rem', height: '2.5rem' }}
+                style={{ width: '3rem', height: '3rem' }}
               >
                 <AnimatePresence mode="wait">
                   {isOpen ? (
@@ -140,26 +151,32 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
               backdropFilter: 'blur(12px)'
             }}
           >
-            <div className="max-w-7xl mx-auto px-3 sm:px-4 py-2">
-              <div className="flex flex-col">
+            <div className="w-full px-4 py-2">
+              <div className="flex flex-col space-y-0.5 w-full">
                 {navItems.map((item, index) => (
                   <motion.div
                     key={item.name}
-                    initial={{ opacity: 0, y: -5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.03, duration: 0.2 }}
-                    className="border-b border-border/20 last:border-0"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05, duration: 0.2 }}
+                    className="w-full border-b border-border/20 last:border-0"
                   >
                     <a
                       href={item.href}
-                      className="block px-4 py-3.5 text-base font-medium text-foreground/90 hover:text-foreground hover:bg-accent/50 transition-colors active:bg-accent/30 w-full text-left"
+                      className="block w-full px-4 py-3.5 text-base font-medium text-foreground/90 hover:text-foreground hover:bg-accent/50 transition-colors active:bg-accent/30 text-left"
                       onClick={() => {
                         setIsOpen(false);
                         // Close mobile menu after a short delay for better UX
                         setTimeout(() => {
-                          const element = document.querySelector(item.href);
-                          if (element) {
-                            element.scrollIntoView({ behavior: 'smooth' });
+                          try {
+                            // Ensure the href is a valid selector
+                            const selector = item.href.startsWith('#') ? item.href : `#${item.href.replace(/^#/, '')}`;
+                            const element = document.querySelector(selector);
+                            if (element) {
+                              element.scrollIntoView({ behavior: 'smooth' });
+                            }
+                          } catch (error) {
+                            console.error('Error scrolling to element:', error);
                           }
                         }, 100);
                       }}

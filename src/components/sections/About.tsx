@@ -28,21 +28,22 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-16 sm:py-20 px-4 sm:px-6" ref={ref}>
-      <div className="container mx-auto max-w-6xl">
+    <section id="about" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 overflow-x-hidden" ref={ref}>
+      <div className="w-full mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl xs:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
+          <h2 className="text-3xl xs:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 px-2">
             About <span className="text-gradient">Me</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto" />
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-start">
+          {/* Main Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
@@ -51,13 +52,13 @@ const About = () => {
           >
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl blur-2xl opacity-20" />
-              <div className="relative glassmorphism rounded-2xl p-1">
-                <div className="bg-background rounded-xl p-5 sm:p-6 md:p-8 lg:p-10">
-                  <p className="text-base md:text-lg text-muted-foreground leading-relaxed mt-4">
+              <div className="relative glassmorphism rounded-2xl p-0.5 sm:p-1">
+                <div className="bg-background rounded-xl p-5 sm:p-6 md:p-8 lg:p-10 overflow-hidden">
+                  <p className="text-base md:text-lg text-muted-foreground leading-relaxed sm:leading-8 mt-4">
                     I'm always learning, building, and sharing my journey through code — 
                     turning complex problems into elegant solutions.
                   </p>
-                  <div className="flex flex-col xs:flex-row gap-3 mt-6">
+                  <div className="flex flex-col xs:flex-row gap-3 mt-8 sm:mt-10 w-full">
                     <motion.div
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -67,7 +68,7 @@ const About = () => {
                         onClick={() => setShowResumePreview(true)}
                         size="lg"
                         variant="outline"
-                        className="group rounded-full w-full glassmorphism"
+                        className="group rounded-full w-full glassmorphism hover:bg-accent/10"
                       >
                         <Eye className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
                         Preview Resume
@@ -104,15 +105,16 @@ const About = () => {
                 onClick={() => setShowResumePreview(false)}
               >
                 <button
+                  aria-label="Close resume preview"
                   className="absolute top-4 right-4 p-2 rounded-full glassmorphism hover:bg-muted transition-colors"
                   onClick={() => setShowResumePreview(false)}
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
                 <motion.div
                   initial={{ scale: 0.8 }}
                   animate={{ scale: 1 }}
-                  className="w-full max-w-4xl max-h-[90vh] glassmorphism rounded-2xl p-1.5 sm:p-2 overflow-hidden mx-2"
+                  className="w-full max-w-[calc(100%-2rem)] sm:max-w-4xl max-h-[90vh] glassmorphism rounded-2xl p-1.5 sm:p-2 overflow-hidden mx-2"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="bg-background rounded-xl overflow-auto max-h-[85vh]">
@@ -127,14 +129,14 @@ const About = () => {
             )}
 
             {/* Features for mobile - shown below bio on mobile */}
-            <div className="lg:hidden space-y-4">
+            <div className="lg:hidden space-y-3 sm:space-y-4 mt-8 w-full">
               {features.map((feature, index) => (
                 <motion.div
                   key={feature.title}
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                  className="glassmorphism rounded-xl p-3 sm:p-4 md:p-6 hover:scale-[1.02] sm:hover:scale-105 transition-transform"
+                  className="glassmorphism rounded-xl p-4 sm:p-5 md:p-6 hover:scale-[1.02] sm:hover:scale-105 transition-transform active:scale-95"
                 >
                   <div className="flex items-start gap-3 md:gap-4">
                     <div className="p-2 md:p-3 rounded-lg bg-gradient-to-br from-primary to-secondary flex-shrink-0">
@@ -153,7 +155,7 @@ const About = () => {
         </div>
 
         {/* Features for desktop - shown below on desktop */}
-        <div className="mt-12 md:mt-16 hidden lg:block">
+        <div className="mt-12 md:mt-16 hidden lg:block w-full">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}

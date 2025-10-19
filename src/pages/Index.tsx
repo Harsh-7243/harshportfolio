@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Projects from "@/components/Projects";
+import { motion } from "framer-motion";
+import { Heart } from "lucide-react";
+import Navbar from "@/components/layout/Navbar";
+import Hero from "@/components/sections/Hero";
+import About from "@/components/sections/About";
+import Projects from "@/components/sections/Projects";
 import Certifications from "@/components/Certifications";
-import Gallery from "@/components/Gallery";
-import Contact from "@/components/Contact";
+import Gallery from "@/components/sections/Gallery";
+import Contact from "@/components/sections/Contact";
 
 const Index = () => {
   const [isDark, setIsDark] = useState(false);
@@ -33,11 +35,6 @@ const Index = () => {
       <Certifications />
       <Gallery />
       <Contact />
-      
-      {/* Footer */}
-      <footer className="py-8 text-center text-muted-foreground border-t">
-        <p>© 2025 Harsh Kumar. Built with ❤️ and code.</p>
-      </footer>
     </div>
   );
 };
