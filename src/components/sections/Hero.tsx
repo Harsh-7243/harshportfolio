@@ -103,7 +103,7 @@ const Hero = () => {
                 <Youtube className="w-6 h-6" />
               </motion.a>
               <motion.a 
-                href="https://instagram.com" 
+                href="https://www.instagram.com/harsh_7243" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="p-3 rounded-full bg-background/80 hover:bg-primary/20 transition-all duration-300"
