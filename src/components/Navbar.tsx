@@ -28,7 +28,7 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
         className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40 shadow-sm supports-[backdrop-filter]:bg-background/60"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
-          <div className="flex items-center justify-between h-14 sm:h-16 relative">
+          <div className="flex items-center h-14 sm:h-16 relative">
             {/* Logo */}
             <motion.div className="flex items-center">
               <motion.a
@@ -42,7 +42,7 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
             </motion.div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-1.5">
+            <div className="hidden md:flex items-center justify-center flex-1 space-x-1.5">
               {navItems.map((item) => (
                 <a
                   key={item.name}
@@ -56,7 +56,7 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
             </div>
 
             {/* Theme Toggle & Mobile Menu */}
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-2 sm:gap-3 ml-auto">
               <motion.button
                 onClick={toggleTheme}
                 className="p-1.5 sm:p-2 rounded-full hover:bg-accent transition-colors flex-shrink-0"
