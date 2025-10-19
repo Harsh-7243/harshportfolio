@@ -4,7 +4,7 @@ import { ArrowRight, Sparkles } from "lucide-react";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-5 md:px-6 lg:px-8 py-16 sm:py-20">
+    <section className="relative min-h-[90vh] sm:min-h-screen flex items-center justify-center overflow-hidden px-3 sm:px-4 md:px-6 py-12 sm:py-16 md:py-20">
       {/* Animated gradient background */}
       <div className="absolute inset-0 bg-[var(--gradient-hero)] opacity-20" />
       
@@ -34,7 +34,7 @@ const Hero = () => {
         }}
       />
 
-      <div className="w-full max-w-6xl mx-auto relative z-10 px-2 sm:px-4">
+      <div className="w-full max-w-6xl mx-auto relative z-10 px-3 sm:px-4">
         <div className="text-center space-y-6 sm:space-y-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -52,10 +52,10 @@ const Hero = () => {
               <span className="text-sm font-medium">Available for opportunities</span>
             </motion.div>
 
-            <h1 className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight px-1 sm:px-2">
+            <h1 className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-bold tracking-tight px-1">
               <span className="block leading-tight sm:leading-none">Harsh Kumar</span>
               <motion.span
-                className="block text-gradient mt-1 sm:mt-2 text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl"
+                className="block text-gradient mt-1 sm:mt-2 text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
@@ -78,11 +78,11 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+{{ ... }}
           >
             <Button
               size="lg"
-              className="group text-sm sm:text-base px-4 sm:px-6 py-3 sm:py-4 md:py-5 rounded-full w-full sm:w-auto"
+              className="group text-sm sm:text-base px-5 py-3 sm:py-4 rounded-full w-full sm:w-auto"
               asChild
             >
               <a href="#projects">
@@ -93,8 +93,8 @@ const Hero = () => {
             </Button>
             <Button
               size="lg"
-              variant="outline"
-              className="text-sm sm:text-base px-4 sm:px-6 py-3 sm:py-4 md:py-5 rounded-full glassmorphism hover:scale-105 transition-transform w-full sm:w-auto"
+variant="outline"
+              className="text-sm sm:text-base px-5 py-3 sm:py-4 rounded-full glassmorphism hover:scale-105 transition-transform w-full sm:w-auto"
               asChild
             >
               <a href="https://linkedin.com/in/harsh-kumar-9a10152b7" target="_blank" rel="noopener noreferrer">
