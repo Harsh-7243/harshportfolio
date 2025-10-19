@@ -36,6 +36,7 @@ const About = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
+          <h2 className="text-3xl xs:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
             About <span className="text-gradient">Me</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto" />
