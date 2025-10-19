@@ -25,9 +25,9 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-lg border-b border-border/40"
+        className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40"
       >
-          <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14 sm:h-16">
             {/* Logo */}
             <motion.div className="flex items-center">
@@ -41,8 +41,22 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
               </motion.a>
             </motion.div>
 
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-1">
+              {navItems.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+
             {/* Theme Toggle & Mobile Menu */}
-            <div className="flex items-center gap-1 sm:gap-2">
+            <div className="flex items-center gap-2 sm:gap-3">
               <motion.button
                 onClick={toggleTheme}
                 className="p-1.5 sm:p-2 rounded-full hover:bg-accent transition-colors"
@@ -77,9 +91,9 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
 
               <motion.button
                 onClick={() => setIsOpen(!isOpen)}
-                className="md:hidden p-1.5 sm:p-2 -mr-1.5 rounded-full hover:bg-accent transition-colors"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
+                className="md:hidden p-2 -mr-1 rounded-lg hover:bg-accent/50 transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 aria-label={isOpen ? 'Close menu' : 'Open menu'}
               >
                 <AnimatePresence mode="wait">
@@ -91,7 +105,7 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
                       exit={{ rotate: 90, scale: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <X className="h-5 w-5" />
+                      <X className="h-5 w-5 text-foreground/90" />
                     </motion.div>
                   ) : (
                     <motion.div
@@ -101,7 +115,7 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
                       exit={{ rotate: -90, scale: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <Menu className="h-5 w-5" />
+                      <Menu className="h-5 w-5 text-foreground/90" />
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -119,7 +133,7 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
             animate={{ opacity: 1, y: 0, height: "auto" }}
             exit={{ opacity: 0, y: -10, height: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="fixed top-14 sm:top-16 left-0 right-0 z-40 md:hidden bg-background/95 backdrop-blur-lg border-b border-border/40 shadow-lg"
+            className="fixed top-14 left-0 right-0 z-40 md:hidden bg-background/95 backdrop-blur-lg border-b border-border/40 shadow-lg"
           >
             <div className="max-w-7xl mx-auto px-3 sm:px-4 py-2">
               <div className="flex flex-col">

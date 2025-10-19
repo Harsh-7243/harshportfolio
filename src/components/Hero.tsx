@@ -4,7 +4,7 @@ import { ArrowRight, Sparkles } from "lucide-react";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-5 md:px-6 lg:px-8 py-16 sm:py-20">
       {/* Animated gradient background */}
       <div className="absolute inset-0 bg-[var(--gradient-hero)] opacity-20" />
       
@@ -34,8 +34,8 @@ const Hero = () => {
         }}
       />
 
-      <div className="w-full max-w-6xl mx-auto relative z-10">
-        <div className="text-center space-y-8">
+      <div className="w-full max-w-6xl mx-auto relative z-10 px-2 sm:px-4">
+        <div className="text-center space-y-6 sm:space-y-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -46,19 +46,19 @@ const Hero = () => {
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full glassmorphism mb-4"
+              className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full glassmorphism mb-3 sm:mb-4 mx-auto"
             >
               <Sparkles className="w-4 h-4 text-primary" />
               <span className="text-sm font-medium">Available for opportunities</span>
             </motion.div>
 
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight px-2 sm:px-4">
-              <span className="block">Harsh Kumar</span>
+            <h1 className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight px-1 sm:px-2">
+              <span className="block leading-tight sm:leading-none">Harsh Kumar</span>
               <motion.span
-                className="block text-gradient mt-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.8 }}
+                className="block text-gradient mt-1 sm:mt-2 text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
               >
                 Developer & Creator
               </motion.span>
@@ -66,10 +66,10 @@ const Hero = () => {
           </motion.div>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-2 sm:px-4"
+            transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
+            className="text-sm xs:text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-2 sm:px-4 leading-relaxed"
           >
             Turning ideas into interactive experiences
           </motion.p>
@@ -110,8 +110,8 @@ const Hero = () => {
             transition={{ delay: 1, duration: 1 }}
             className="mt-12 sm:mt-16"
           >
-            <div className="inline-block glassmorphism rounded-lg p-3 sm:p-4 md:p-6 text-left w-full max-w-md mx-auto">
-              <pre className="text-[10px] xs:text-xs sm:text-sm text-primary font-mono overflow-x-auto">
+            <div className="inline-block glassmorphism rounded-lg p-3 sm:p-4 text-left w-full max-w-sm sm:max-w-md mx-auto">
+              <pre className="text-[10px] xs:text-xs sm:text-sm text-primary font-mono overflow-x-auto leading-tight">
                 <code>{`const developer = {
   name: "Harsh Kumar",
   passion: "Building magic",
