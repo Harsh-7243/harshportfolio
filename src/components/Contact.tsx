@@ -45,8 +45,8 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-16 sm:py-20 px-4 sm:px-6 bg-muted/30" ref={ref}>
-      <div className="container mx-auto max-w-6xl">
+    <section id="contact" className="py-12 sm:py-16 px-3 sm:px-4 md:px-6 bg-muted/30 w-full" ref={ref}>
+      <div className="container mx-auto max-w-6xl w-full px-2 sm:px-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
@@ -65,35 +65,105 @@ const Contact = () => {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 px-4">
             Let's Build Together 💫
           </h2>
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             Have a project in mind? Let's create something amazing together.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 w-full">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="space-y-8 sm:space-y-12"
-                      <div className="glassmorphism rounded-2xl p-5 sm:p-6 md:p-8">
+          >
+            <div className="glassmorphism rounded-2xl p-4 sm:p-6 w-full">
               <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Get in Touch</h3>
               <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
                 <div className="relative">
                   <Input
                     placeholder=" "
-{{ ... }}
+                    value={formData.name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
+                    onFocus={() => setFocusedField("name")}
+                    onBlur={() => setFocusedField(null)}
+                    className="bg-background/50 peer pt-6"
+                    required
+                  />
+                  <label className="absolute left-3 top-4 text-muted-foreground pointer-events-none transition-all duration-200 peer-focus:text-xs peer-focus:top-2 peer-focus:text-primary peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:top-2">
+                    Your Name
+                  </label>
+                </div>
+                <div className="relative">
+                  <Input
+                    type="email"
+                    placeholder=" "
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                    onFocus={() => setFocusedField("email")}
+                    onBlur={() => setFocusedField(null)}
+                    className="bg-background/50 peer pt-6"
+                    required
+                  />
+                  <label className="absolute left-3 top-4 text-muted-foreground pointer-events-none transition-all duration-200 peer-focus:text-xs peer-focus:top-2 peer-focus:text-primary peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:top-2">
+                    Your Email
+                  </label>
+                </div>
+                <div className="relative">
+                  <Textarea
+                    placeholder=" "
+                    value={formData.message}
+                    onChange={(e) =>
+                      setFormData({ ...formData, message: e.target.value })
+                    }
+                    onFocus={() => setFocusedField("message")}
+                    onBlur={() => setFocusedField(null)}
+                    className="bg-background/50 min-h-[150px] peer pt-6"
+                    required
+                  />
+                  <label className="absolute left-3 top-4 text-muted-foreground pointer-events-none transition-all duration-200 peer-focus:text-xs peer-focus:top-2 peer-focus:text-primary peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:top-2">
+                    Your Message
+                  </label>
+                </div>
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <Button
+                    type="submit"
+                    className="w-full group relative overflow-hidden"
+                    size="lg"
+                  >
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-accent"
+                      initial={{ x: "-100%" }}
+                      whileHover={{ x: "100%" }}
+                      transition={{ duration: 0.5 }}
+                    />
+                    <span className="relative z-10 flex items-center justify-center">
+                      Send Message
+                      <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 group-hover:rotate-45 transition-all" />
+                    </span>
+                  </Button>
+                </motion.div>
+              </form>
+            </div>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             className="space-y-8 sm:space-y-12"
-                      <div className="glassmorphism rounded-2xl p-5 sm:p-6 md:p-8">
+          >
+            <div className="glassmorphism rounded-2xl p-4 sm:p-6 w-full">
               <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Connect With Me</h3>
               <div className="space-y-4 sm:space-y-6">
                 {socialLinks.map((link, index) => (
                   <motion.a
                     key={link.label}
-{{ ... }}
+                    href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     initial={{ opacity: 0, x: 20 }}
