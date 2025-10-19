@@ -27,8 +27,8 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40"
       >
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14 sm:h-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <motion.div className="flex items-center">
               <motion.a
@@ -91,10 +91,11 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
 
               <motion.button
                 onClick={() => setIsOpen(!isOpen)}
-                className="md:hidden p-2 -mr-1 rounded-lg hover:bg-accent/50 transition-colors"
+                className="md:hidden p-2 -mr-1.5 rounded-lg hover:bg-accent/50 transition-colors flex items-center justify-center"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label={isOpen ? 'Close menu' : 'Open menu'}
+                style={{ width: '2.5rem', height: '2.5rem' }}
               >
                 <AnimatePresence mode="wait">
                   {isOpen ? (
