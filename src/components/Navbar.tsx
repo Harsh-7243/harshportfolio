@@ -27,7 +27,7 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40 shadow-sm supports-[backdrop-filter]:bg-background/60"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
           <div className="flex items-center justify-between h-14 sm:h-16 relative">
             {/* Logo */}
             <motion.div className="flex items-center">
@@ -91,7 +91,7 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
 
               <motion.button
                 onClick={() => setIsOpen(!isOpen)}
-                className="md:hidden p-2 -mr-1.5 rounded-lg hover:bg-accent/50 transition-colors flex items-center justify-center"
+                className="md:hidden p-2 -mr-1.5 rounded-lg hover:bg-accent/50 transition-colors flex items-center justify-center relative z-50"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label={isOpen ? 'Close menu' : 'Open menu'}
@@ -135,6 +135,10 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
             exit={{ opacity: 0, y: -10, height: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
             className="fixed top-14 left-0 right-0 z-[60] md:hidden bg-background/95 backdrop-blur-lg border-b border-border/40 shadow-lg supports-[backdrop-filter]:bg-background/80"
+            style={{
+              WebkitBackdropFilter: 'blur(12px)',
+              backdropFilter: 'blur(12px)'
+            }}
           >
             <div className="max-w-7xl mx-auto px-3 sm:px-4 py-2">
               <div className="flex flex-col">
