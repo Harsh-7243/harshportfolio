@@ -25,51 +25,30 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50"
+        className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-lg border-b border-border/40"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 sm:h-16">
             {/* Logo */}
-            <motion.a
-              href="#"
-              className="text-2xl font-bold bg-gradient-to-r from-primary via-purple-500 to-secondary bg-clip-text text-transparent"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              HK
-            </motion.a>
-
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-1">
-              {navItems.map((item, index) => (
-                <motion.a
-                  key={item.name}
-                  href={item.href}
-                  className="relative px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors group"
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ y: -2 }}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.name}
-                  <motion.span
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-secondary rounded-full"
-                    initial={{ scaleX: 0 }}
-                    whileHover={{ scaleX: 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </motion.a>
-              ))}
-            </div>
+            <motion.div className="flex items-center">
+              <motion.a
+                href="#"
+                className="text-2xl font-bold bg-gradient-to-r from-primary via-purple-500 to-secondary bg-clip-text text-transparent"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                HK
+              </motion.a>
+            </motion.div>
 
             {/* Theme Toggle & Mobile Menu */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 sm:gap-2">
               <motion.button
                 onClick={toggleTheme}
-                className="p-2 rounded-full hover:bg-accent transition-colors"
+                className="p-1.5 sm:p-2 rounded-full hover:bg-accent transition-colors"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
+                aria-label="Toggle theme"
               >
                 <AnimatePresence mode="wait">
                   {isDark ? (
@@ -98,9 +77,10 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
 
               <motion.button
                 onClick={() => setIsOpen(!isOpen)}
-                className="md:hidden p-2 rounded-full hover:bg-accent transition-colors"
+                className="md:hidden p-1.5 sm:p-2 -mr-1.5 rounded-full hover:bg-accent transition-colors"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
+                aria-label={isOpen ? 'Close menu' : 'Open menu'}
               >
                 <AnimatePresence mode="wait">
                   {isOpen ? (
@@ -135,27 +115,39 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed top-16 left-0 right-0 z-40 md:hidden bg-background/95 backdrop-blur-lg border-b border-border/50"
+            initial={{ opacity: 0, y: -10, height: 0 }}
+            animate={{ opacity: 1, y: 0, height: "auto" }}
+            exit={{ opacity: 0, y: -10, height: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="fixed top-14 sm:top-16 left-0 right-0 z-40 md:hidden bg-background/95 backdrop-blur-lg border-b border-border/40 shadow-lg"
           >
-            <div className="max-w-7xl mx-auto px-4 py-4">
-              <div className="flex flex-col gap-1">
+            <div className="max-w-7xl mx-auto px-3 sm:px-4 py-2">
+              <div className="flex flex-col">
                 {navItems.map((item, index) => (
-                  <motion.a
+                  <motion.div
                     key={item.name}
-                    href={item.href}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="px-4 py-3 text-base font-medium text-foreground/80 hover:text-foreground hover:bg-accent rounded-lg transition-colors"
-                    onClick={() => setIsOpen(false)}
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.03, duration: 0.2 }}
+                    className="border-b border-border/20 last:border-0"
                   >
-                    {item.name}
-                  </motion.a>
+                    <a
+                      href={item.href}
+                      className="block px-3 py-3.5 text-base font-medium text-foreground/90 hover:text-foreground hover:bg-accent/50 rounded-lg transition-colors active:bg-accent/30"
+                      onClick={() => {
+                        setIsOpen(false);
+                        // Close mobile menu after a short delay for better UX
+                        setTimeout(() => {
+                          const element = document.querySelector(item.href);
+                          if (element) {
+                            element.scrollIntoView({ behavior: 'smooth' });
+                          }
+                        }, 100);
+                      }}
+                    >
+                      {item.name}
+                    </a>
+                  </motion.div>
                 ))}
               </div>
             </div>
