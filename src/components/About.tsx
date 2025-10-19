@@ -28,7 +28,7 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-20 px-4" ref={ref}>
+    <section id="about" className="py-16 sm:py-20 px-4 sm:px-6" ref={ref}>
       <div className="container mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -36,34 +36,27 @@ const About = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
             About <span className="text-gradient">Me</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto" />
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-start">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-start">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="space-y-6"
+            className="space-y-6 sm:space-y-8 md:space-y-10 lg:space-y-12"
           >
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl blur-2xl opacity-20" />
               <div className="relative glassmorphism rounded-2xl p-1">
-                <div className="bg-background rounded-xl p-6 md:p-8">
-                  <h3 className="text-xl md:text-2xl font-bold mb-4">Hi, I'm Harsh 👋</h3>
-                  <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                    A developer who loves blending creativity and logic to craft smooth, 
-                    meaningful digital experiences. I enjoy motion design, responsive layouts, 
-                    and transforming ideas into delightful UIs.
-                  </p>
+                <div className="bg-background rounded-xl p-5 sm:p-6 md:p-8 lg:p-10">
                   <p className="text-base md:text-lg text-muted-foreground leading-relaxed mt-4">
                     I'm always learning, building, and sharing my journey through code — 
                     turning complex problems into elegant solutions.
                   </p>
-                  <div className="flex flex-col sm:flex-row gap-3 mt-6">
+                  <div className="flex flex-col xs:flex-row gap-3 mt-6">
                     <motion.div
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -106,7 +99,7 @@ const About = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-50 bg-background/95 backdrop-blur-sm flex items-center justify-center p-4"
+                className="fixed inset-0 z-[100] bg-background/95 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4"
                 onClick={() => setShowResumePreview(false)}
               >
                 <button
@@ -118,13 +111,13 @@ const About = () => {
                 <motion.div
                   initial={{ scale: 0.8 }}
                   animate={{ scale: 1 }}
-                  className="max-w-4xl w-full max-h-[90vh] glassmorphism rounded-2xl p-2 overflow-hidden"
+                  className="w-full max-w-4xl max-h-[90vh] glassmorphism rounded-2xl p-1.5 sm:p-2 overflow-hidden mx-2"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="bg-background rounded-xl overflow-auto max-h-[85vh]">
                     <iframe
                       src="/RESUME.pdf#toolbar=0"
-                      className="w-full h-[80vh] border-0"
+                      className="w-full h-[75vh] sm:h-[80vh] border-0"
                       title="Resume Preview Modal"
                     />
                   </div>
@@ -140,7 +133,7 @@ const About = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                  className="glassmorphism rounded-xl p-4 md:p-6 hover:scale-105 transition-transform"
+                  className="glassmorphism rounded-xl p-3 sm:p-4 md:p-6 hover:scale-[1.02] sm:hover:scale-105 transition-transform"
                 >
                   <div className="flex items-start gap-3 md:gap-4">
                     <div className="p-2 md:p-3 rounded-lg bg-gradient-to-br from-primary to-secondary flex-shrink-0">

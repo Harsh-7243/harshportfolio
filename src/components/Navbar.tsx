@@ -25,10 +25,10 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40 shadow-sm"
+        className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40 shadow-sm supports-[backdrop-filter]:bg-background/60"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="flex items-center justify-between h-16 relative">
+          <div className="flex items-center justify-between h-14 sm:h-16 relative">
             {/* Logo */}
             <motion.div className="flex items-center">
               <motion.a
@@ -42,12 +42,12 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
             </motion.div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-1">
+            <div className="hidden md:flex items-center space-x-1.5">
               {navItems.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
+                  className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-accent/50 rounded-lg transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
@@ -59,7 +59,7 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
             <div className="flex items-center gap-2 sm:gap-3">
               <motion.button
                 onClick={toggleTheme}
-                className="p-1.5 sm:p-2 rounded-full hover:bg-accent transition-colors"
+                className="p-1.5 sm:p-2 rounded-full hover:bg-accent transition-colors flex-shrink-0"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 aria-label="Toggle theme"
@@ -134,7 +134,7 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
             animate={{ opacity: 1, y: 0, height: "auto" }}
             exit={{ opacity: 0, y: -10, height: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="fixed top-16 left-0 right-0 z-[60] md:hidden bg-background/95 backdrop-blur-lg border-b border-border/40 shadow-lg"
+            className="fixed top-14 left-0 right-0 z-[60] md:hidden bg-background/95 backdrop-blur-lg border-b border-border/40 shadow-lg supports-[backdrop-filter]:bg-background/80"
           >
             <div className="max-w-7xl mx-auto px-3 sm:px-4 py-2">
               <div className="flex flex-col">
@@ -148,7 +148,7 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
                   >
                     <a
                       href={item.href}
-                      className="block px-3 py-3.5 text-base font-medium text-foreground/90 hover:text-foreground hover:bg-accent/50 rounded-lg transition-colors active:bg-accent/30"
+                      className="block px-4 py-3.5 text-base font-medium text-foreground/90 hover:text-foreground hover:bg-accent/50 transition-colors active:bg-accent/30 w-full text-left"
                       onClick={() => {
                         setIsOpen(false);
                         // Close mobile menu after a short delay for better UX
