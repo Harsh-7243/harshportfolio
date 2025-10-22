@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, useState, FormEvent } from "react";
+import { useRef, useState } from "react";
 import { Github, Linkedin, Mail, Send, Sparkles, Loader2 } from "lucide-react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -13,38 +13,30 @@ const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-// Type definitions
-interface FormData {
-  name: string;
-  email: string;
-  message: string;
-}
-
-interface SocialLink {
-  icon: React.ComponentType<{ className?: string }>;
-  label: string;
-  href: string;
-  gradient: string;
-}
-
 const Contact = () => {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [focusedField, setFocusedField] = useState(null);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     // Validate environment variables
     if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
-      console.error('EmailJS environment variables are not properly configured.');
-      toast.error("Service is currently unavailable. Please try again later.");
+      // Demo fallback: open default mail client with prefilled content
+      const subject = encodeURIComponent(`New message from ${formData.name}`);
+      const body = encodeURIComponent(
+        `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+      );
+      const mailtoUrl = `mailto:srivastavaharsh1108@gmail.com?subject=${subject}&body=${body}`;
+      window.location.href = mailtoUrl;
+      toast.info("Opened your email app to send the message (demo mode)");
       return;
     }
 
@@ -74,7 +66,7 @@ const Contact = () => {
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -82,7 +74,7 @@ const Contact = () => {
     }));
   };
 
-  const socialLinks: SocialLink[] = [
+  const socialLinks = [
     {
       icon: Github,
       label: "GitHub",

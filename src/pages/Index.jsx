@@ -29,7 +29,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Navbar isDark={isDark} toggleTheme={toggleTheme} />
-      <Hero />
+      <Hero isDark={isDark} />
       <About />
       <Projects />
       <Certifications />

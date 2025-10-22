@@ -4,14 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-interface GalleryItem {
-  id: number;
-  title: string;
-  image: string;
-  category: string;
-}
-
-const galleryItems: GalleryItem[] = [
+const galleryItems = [
   {
     id: 1,
     title: "Modern Dashboard",
@@ -69,9 +62,9 @@ const galleryItems: GalleryItem[] = [
 ];
 
 const Gallery = () => {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const [selectedImage, setSelectedImage] = useState(null);
   const [showAll, setShowAll] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const controls = useAnimation();
@@ -93,11 +86,11 @@ const Gallery = () => {
     setSwipeX(0);
   };
 
-  const handleSwipe = (event: any, info: any) => {
+  const handleSwipe = (event, info) => {
     setSwipeX(info.offset.x);
   };
 
-  const handleSwipeEnd = (event: any, info: any) => {
+  const handleSwipeEnd = (event, info) => {
     if (selectedImage === null) return;
     
     // If swipe distance is significant, navigate to next/previous image
@@ -202,9 +195,11 @@ const Gallery = () => {
                 if (e.target === e.currentTarget) setSelectedImage(null);
               }}
             >
-              <button
+              <div
                 className="relative max-w-6xl w-full max-h-[90vh] overflow-hidden rounded-xl bg-background shadow-2xl border border-border/50"
                 onClick={(e) => e.stopPropagation()}
+                role="dialog"
+                aria-modal="true"
               >
                 <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-background/80 to-transparent z-10 flex justify-between items-center">
                   <div>
@@ -298,7 +293,7 @@ const Gallery = () => {
                     </p>
                   </div>
                 )}
-              </button>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

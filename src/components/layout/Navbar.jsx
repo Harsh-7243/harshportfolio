@@ -2,12 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 
-interface NavbarProps {
-  isDark: boolean;
-  toggleTheme: () => void;
-}
-
-const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
+const Navbar = ({ isDark, toggleTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -57,6 +52,7 @@ const Navbar = ({ isDark, toggleTheme }: NavbarProps) => {
             <div className="hidden md:flex items-center justify-center flex-1 space-x-1.5">
               {navItems.map((item) => (
                 <a
+                  key={item.name}
                   href={item.href}
                   className="px-3 py-2.5 text-sm sm:text-base font-medium text-foreground/90 hover:text-foreground hover:bg-accent/50 rounded-lg transition-colors active:bg-accent/70"
                   onClick={() => setIsOpen(false)}

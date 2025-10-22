@@ -6,21 +6,10 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-interface Repository {
-  id: number;
-  name: string;
-  description: string;
-  html_url: string;
-  homepage: string;
-  stargazers_count: number;
-  language: string;
-  topics: string[];
-}
-
 const Projects = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [repos, setRepos] = useState<Repository[]>([]);
+  const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
