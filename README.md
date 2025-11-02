@@ -54,26 +54,12 @@ cd harshportfolio
 # Install dependencies
 npm install
 
-# Set up environment variables (.env)
-VITE_EMAILJS_SERVICE_ID=your_service_id
-VITE_EMAILJS_TEMPLATE_ID=your_template_id
-VITE_EMAILJS_PUBLIC_KEY=your_public_key
-
 # Start development server
 npm run dev
 
 # Build for production
 npm run build
 ```
-
-**Get EmailJS credentials:** Sign up at [EmailJS.com](https://www.emailjs.com/)
-
-## 🎨 Customization
-
-**Theme Colors:** Edit `src/index.css`  
-**Personal Info:** Update `Contact.jsx`, `Hero.jsx`, `About.jsx`  
-**Projects:** Modify `Projects.jsx`
-
 ### Scripts
 
 ```bash
@@ -110,4 +96,4 @@ Built with [shadcn/ui](https://ui.shadcn.com/), [Three.js](https://threejs.org/)
 
 ---
 
-<div align="center">Made with ❤️ by <a href="https://github.com/Harsh-7243">Harsh Kumar</a></div>
+<div align="center">Made by <a href="https://github.com/Harsh-7243">Harsh Kumar</a></div>
