@@ -29,10 +29,16 @@ const MobileDevice3D = ({ isDark, folders }) => {
     }
   }, []);
 
-  const handleFolderClick = (section) => {
-    const element = document.getElementById(section);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const handleFolderClick = (folder) => {
+    // If folder has a URL, open it in a new tab
+    if (folder.url) {
+      window.open(folder.url, '_blank', 'noopener,noreferrer');
+    } else {
+      // Otherwise, scroll to the section
+      const element = document.getElementById(folder.section);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -137,7 +143,7 @@ const MobileDevice3D = ({ isDark, folders }) => {
                       transition: { type: "spring", stiffness: 300, damping: 20 }
                     }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => handleFolderClick(folder.section)}
+                    onClick={() => handleFolderClick(folder)}
                     onMouseEnter={() => setHoveredFolder(folder.id)}
                     onMouseLeave={() => setHoveredFolder(null)}
                     style={{ transformStyle: 'preserve-3d' }}
