@@ -9,7 +9,7 @@
 
 **Modern portfolio with interactive 3D elements, smooth animations, and responsive design.**
 
-[View Demo](https://meharsh.vercel.app) · [Report Bug](https://github.com/Harsh-7243/harshportfolio/issues)
+[View Demo](https://meharsh.vercel.app) · [Report Bug](https://github.com/iharshkumar/harshportfolio/issues)
 
 </div>
 
@@ -82,8 +82,8 @@ Contributions welcome! Fork the repo, create a feature branch, and submit a PR.
 ## 📬 Contact
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-meharsh.vercel.app-blue?style=for-the-badge&logo=vercel)](https://meharsh.vercel.app)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Harsh_Kumar-0077B5?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/harsh-kumar-9a10152b7)
-[![GitHub](https://img.shields.io/badge/GitHub-Harsh--7243-181717?style=for-the-badge&logo=github)](https://github.com/Harsh-7243)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Harsh_Kumar-0077B5?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/meharshkumar)
+[![GitHub](https://img.shields.io/badge/GitHub-Harsh--7243-181717?style=for-the-badge&logo=github)](https://github.com/iharshkumar)
 [![Email](https://img.shields.io/badge/Email-Contact-EA4335?style=for-the-badge&logo=gmail)](mailto:srivastavaharsh1108@gmail.com)
 
 ## 📄 License
@@ -96,4 +96,4 @@ Built with [shadcn/ui](https://ui.shadcn.com/), [Three.js](https://threejs.org/)
 
 ---
 
-<div align="center">Made by <a href="https://github.com/Harsh-7243">Harsh Kumar</a></div>
+<div align="center">Made by <a href="https://github.com/iharshkumar">Harsh Kumar</a></div>
