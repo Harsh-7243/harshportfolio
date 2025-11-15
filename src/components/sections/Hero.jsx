@@ -17,6 +17,11 @@ const ComputerLoader = () => (
 
 const Hero = ({ isDark }) => {
   const [isMobile, setIsMobile] = useState(false);
+  const [displayedText, setDisplayedText] = useState("");
+  const [showCursor, setShowCursor] = useState(true);
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
+  const fullText = "Hi, I'm Harsh Kumar";
+  const nameText = "Harsh Kumar";
 
   useEffect(() => {
     const checkMobile = () => {
@@ -28,12 +33,49 @@ const Hero = ({ isDark }) => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Typewriter effect
+  useEffect(() => {
+    let currentIndex = 0;
+    const typingSpeed = 100; // milliseconds per character
+    const cursorBlinkSpeed = 530; // milliseconds
+    let cursorInterval;
+
+    // Typing animation
+    const typingInterval = setInterval(() => {
+      if (currentIndex <= fullText.length) {
+        setDisplayedText(fullText.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(typingInterval);
+        setIsTypingComplete(true);
+        setShowCursor(false); // Hide cursor when typing is complete
+        // Clear cursor blinking interval when typing is complete
+        if (cursorInterval) {
+          clearInterval(cursorInterval);
+        }
+      }
+    }, typingSpeed);
+
+    // Cursor blinking animation (only runs while typing)
+    cursorInterval = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, cursorBlinkSpeed);
+
+    return () => {
+      clearInterval(typingInterval);
+      if (cursorInterval) {
+        clearInterval(cursorInterval);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty array - only run on mount
+
   const socialLinks = [
-    { icon: <Github className="w-4 h-4" />, url: "https://github.com/Harsh-7243" },
+    { icon: <Github className="w-4 h-4" />, url: "https://github.com/iharshkumar" },
     { icon: <Twitter className="w-4 h-4" />, url: "https://x.com/harsh_7243" },
     { icon: <Instagram className="w-4 h-4" />, url: "https://www.instagram.com/harsh_7243" },
-    { icon: <Linkedin className="w-4 h-4" />, url: "https://linkedin.com/in/harsh-kumar-9a10152b7" },
-    { icon: <Mail className="w-4 h-4" />, url: "mailto:your.email@example.com" },
+    { icon: <Linkedin className="w-4 h-4" />, url: "https://linkedin.com/in/meharshkumar7" },
+    { icon: <Mail className="w-4 h-4" />, url: "mailto:srivastavaharsh1108@gmail.com" },
   ];
 
   // Syntax color mapping for light & dark themes
@@ -65,8 +107,27 @@ const Hero = ({ isDark }) => {
               </div>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mt-4 sm:mt-0">
-              Hi, I'm <span className="text-primary">Harsh Kumar</span>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mt-4 sm:mt-0 min-h-[1.2em]">
+              {displayedText ? (
+                <>
+                  {displayedText.startsWith("Hi, I'm ") ? (
+                    <>
+                      Hi, I'm{' '}
+                      <span className="text-primary">
+                        {displayedText.substring(8)}
+                        {showCursor && <span className="animate-pulse">|</span>}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      {displayedText}
+                      {showCursor && <span className="animate-pulse">|</span>}
+                    </>
+                  )}
+                </>
+              ) : (
+                <span className="animate-pulse">|</span>
+              )}
             </h1>
 
             <motion.div 
@@ -121,9 +182,10 @@ const Hero = ({ isDark }) => {
                   folders={[
                     { id: 1, label: 'About', section: 'about', icon: '👤' },
                     { id: 2, label: 'Projects', section: 'projects', icon: '💼' },
-                    { id: 3, label: 'Skills', section: 'skills', icon: '⚡' },
-                    { id: 4, label: 'Gallery', section: 'gallery', icon: '🖼️' },
+                    { id: 3, label: 'Experience', section: 'experience', icon: '🏢' },
+                    { id: 4, label: 'Skills', section: 'skills', icon: '⚡' },
                     { id: 5, label: 'Contact', section: 'contact', icon: '📧' },
+                    { id: 6, label: 'YouTube', section: 'youtube', icon: '📺', url: 'https://www.youtube.com/@alostpick' },
                   ]} 
                 />
               ) : (

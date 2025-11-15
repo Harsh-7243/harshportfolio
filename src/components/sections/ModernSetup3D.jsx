@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { User, Briefcase, Zap, Mail, Code2, Sparkles, Youtube, Building2 } from 'lucide-react';
 
 const ModernSetup3D = ({ isDark }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -8,11 +9,12 @@ const ModernSetup3D = ({ isDark }) => {
   const [isMobile, setIsMobile] = useState(false);
 
   const folders = [
-    { id: 1, label: 'About', section: 'about', icon: '👤' },
-    { id: 2, label: 'Projects', section: 'projects', icon: '💼' },
-    { id: 3, label: 'Skills', section: 'skills', icon: '⚡' },
-    { id: 4, label: 'Gallery', section: 'gallery', icon: '🖼️' },
-    { id: 5, label: 'Contact', section: 'contact', icon: '📧' },
+    { id: 1, label: 'About', section: 'about', icon: User, color: 'from-blue-500 to-cyan-500' },
+    { id: 2, label: 'Projects', section: 'projects', icon: Briefcase, color: 'from-purple-500 to-pink-500' },
+    { id: 3, label: 'Experience', section: 'experience', icon: Building2, color: 'from-indigo-500 to-blue-500' },
+    { id: 4, label: 'Skills', section: 'skills', icon: Zap, color: 'from-yellow-500 to-orange-500' },
+    { id: 5, label: 'Contact', section: 'contact', icon: Mail, color: 'from-red-500 to-rose-500' },
+    { id: 6, label: 'YouTube', section: 'youtube', icon: Youtube, color: 'from-red-600 to-red-500', url: 'https://www.youtube.com/@alostpick' },
   ];
 
   useEffect(() => {
@@ -47,10 +49,14 @@ const ModernSetup3D = ({ isDark }) => {
     }
   }, []);
 
-  const handleFolderClick = (section) => {
-    const element = document.getElementById(section);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const handleFolderClick = (folder) => {
+    if (folder.url) {
+      window.open(folder.url, '_blank', 'noopener,noreferrer');
+    } else {
+      const element = document.getElementById(folder.section);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -366,41 +372,69 @@ const ModernSetup3D = ({ isDark }) => {
               </motion.div>
 
               {/* Main Content */}
-              <div className="p-4 relative h-[calc(100%-32px)]">
+              <div className="p-2 relative h-[calc(100%-32px)] overflow-hidden">
+                {/* Subtle Background Pattern */}
+                <div 
+                  className="absolute inset-0 opacity-[0.03]"
+                  style={{
+                    backgroundImage: `radial-gradient(circle at 2px 2px, hsl(var(--foreground)) 1px, transparent 0)`,
+                    backgroundSize: '20px 20px',
+                  }}
+                />
+
                 {/* Welcome Section */}
                 <motion.div
-                  className="text-center mb-4"
+                  className="text-center mb-2 relative z-10"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.4 }}
                 >
-                  <h1 
-                    className="text-xl font-bold mb-2"
-                    style={{ color: 'hsl(var(--foreground))' }}
+                  <motion.div
+                    className="inline-flex items-center gap-1 mb-1.5"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.5, type: 'spring', stiffness: 200 }}
+                  >
+                    <Code2 className="w-3 h-3" style={{ color: 'hsl(var(--primary))' }} />
+                    <Sparkles className="w-2.5 h-2.5" style={{ color: 'hsl(var(--secondary))' }} />
+                  </motion.div>
+                  <motion.h1 
+                    className="text-sm font-bold mb-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.6 }}
                   >
                     Welcome to My Portfolio
-                  </h1>
-                  <div className="relative h-1 w-28 mx-auto">
+                  </motion.h1>
+                  <motion.p
+                    className="text-[9px] mb-1.5"
+                    style={{ color: 'hsl(var(--muted-foreground))' }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.7 }}
+                  >
+                    Explore my work & skills
+                  </motion.p>
+                  <div className="relative h-0.5 w-16 mx-auto">
                     <motion.div
-                      className="absolute inset-0 rounded-full"
-                      style={{
-                        background: 'var(--gradient-secondary)',
-                      }}
+                      className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-primary to-transparent"
                       animate={{
-                        backgroundPosition: ['0% 50%', '100% 50%'],
+                        opacity: [0.5, 1, 0.5],
                       }}
                       transition={{
-                        duration: 3,
+                        duration: 2,
                         repeat: Infinity,
-                        repeatType: 'reverse',
+                        ease: "easeInOut",
                       }}
                     />
                   </div>
                 </motion.div>
 
                 {/* Navigation Grid */}
-                <div className="grid grid-cols-3 gap-3 px-2">
-                  {folders.map((folder, index) => (
+                <div className="grid grid-cols-3 gap-1.5 px-0.5 relative z-10">
+                  {folders.map((folder, index) => {
+                    const IconComponent = folder.icon;
+                    return (
                     <motion.div
                       key={folder.id}
                       className="relative"
@@ -408,92 +442,138 @@ const ModernSetup3D = ({ isDark }) => {
                       animate={{ opacity: 1, scale: 1, y: 0 }}
                       transition={{ 
                         duration: 0.4,
-                        delay: 0.6 + index * 0.1,
+                          delay: 0.8 + index * 0.1,
                         type: 'spring',
                         stiffness: 100
                       }}
                     >
-                      <motion.button
-                        className="w-full group"
-                        onClick={() => handleFolderClick(folder.section)}
-                        onMouseEnter={() => setHoveredFolder(folder.id)}
-                        onMouseLeave={() => setHoveredFolder(null)}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
+                        <motion.button
+                          className="w-full group"
+                          onClick={() => handleFolderClick(folder)}
+                          onMouseEnter={() => setHoveredFolder(folder.id)}
+                          onMouseLeave={() => setHoveredFolder(null)}
+                          whileHover={{ scale: 1.05, y: -1 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
                         <motion.div
-                          className="relative p-3 rounded-xl"
+                            className="relative p-1.5 rounded-md overflow-hidden"
                           style={{
                             background: hoveredFolder === folder.id
-                              ? `linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%)`
-                              : (isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255, 255, 255, 0.6)'),
-                            backdropFilter: 'blur(8px)',
+                                ? (isDark 
+                                    ? 'linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(147, 51, 234, 0.2))'
+                                    : 'linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(147, 51, 234, 0.15))')
+                                : (isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255, 255, 255, 0.5)'),
+                              backdropFilter: 'blur(10px)',
                             border: `1px solid ${
                               hoveredFolder === folder.id
-                                ? (isDark ? 'rgba(59, 130, 246, 0.3)' : 'rgba(59, 130, 246, 0.2)')
-                                : (isDark ? 'rgba(75, 85, 99, 0.3)' : 'rgba(209, 213, 219, 0.5)')
-                            }`,
-                          }}
-                        >
-                          <div className="flex flex-col items-center space-y-2">
+                                  ? (isDark ? 'rgba(59, 130, 246, 0.4)' : 'rgba(59, 130, 246, 0.3)')
+                                  : (isDark ? 'rgba(75, 85, 99, 0.2)' : 'rgba(209, 213, 219, 0.4)')
+                              }`,
+                              boxShadow: hoveredFolder === folder.id
+                                ? (isDark 
+                                    ? '0 2px 8px rgba(59, 130, 246, 0.2), inset 0 1px 0 rgba(255,255,255,0.1)'
+                                    : '0 2px 8px rgba(59, 130, 246, 0.15), inset 0 1px 0 rgba(255,255,255,0.5)')
+                                : 'none',
+                            }}
+                          >
+                            {/* Gradient overlay on hover */}
+                            {hoveredFolder === folder.id && (
+                              <motion.div
+                                className={`absolute inset-0 bg-gradient-to-br ${folder.color} opacity-20`}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 0.2 }}
+                                transition={{ duration: 0.3 }}
+                              />
+                            )}
+
+                            <div className="flex flex-col items-center space-y-1 relative z-10">
                             <motion.div
-                              className="relative"
+                                className="relative p-1 rounded-md"
+                                style={{
+                                  background: hoveredFolder === folder.id
+                                    ? (isDark ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.6)')
+                                    : 'transparent',
+                                }}
                               animate={hoveredFolder === folder.id ? {
-                                y: [0, -3, 0],
+                                  rotate: [0, -5, 5, 0],
                               } : {}}
                               transition={{
-                                duration: 1,
-                                repeat: Infinity,
-                                repeatType: 'reverse',
-                              }}
-                            >
-                              <span className="text-2xl filter drop-shadow-lg">
-                                {folder.icon}
-                              </span>
+                                  duration: 0.5,
+                                  repeat: hoveredFolder === folder.id ? Infinity : 0,
+                                  repeatDelay: 1,
+                                }}
+                              >
+                                <IconComponent 
+                                  className="w-3 h-3"
+                                  style={{
+                                    color: hoveredFolder === folder.id
+                                      ? (isDark ? 'hsl(var(--primary))' : 'hsl(var(--primary))')
+                                      : (isDark ? 'hsl(var(--muted-foreground))' : 'hsl(var(--foreground))'),
+                                  }}
+                                />
                               {hoveredFolder === folder.id && (
                                 <motion.div
-                                  className="absolute -inset-2 rounded-full"
+                                    className="absolute -inset-0.5 rounded-md"
                                   style={{
-                                    background: 'radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%)',
+                                      background: `radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)`,
+                                      opacity: 0.3,
                                   }}
                                   initial={{ opacity: 0, scale: 0 }}
-                                  animate={{ opacity: 1, scale: 1 }}
-                                  transition={{ duration: 0.2 }}
+                                    animate={{ opacity: 0.3, scale: 1 }}
+                                    transition={{ duration: 0.3 }}
                                 />
                               )}
                             </motion.div>
                             <span 
-                              className="text-xs font-medium"
+                                className="text-[8px] font-semibold leading-tight"
                               style={{
                                   color: hoveredFolder === folder.id
-                                    ? (isDark ? 'hsl(var(--primary-foreground))' : 'hsl(var(--primary))')
+                                    ? (isDark ? 'hsl(var(--primary))' : 'hsl(var(--primary))')
                                     : (isDark ? 'hsl(var(--card-foreground))' : 'hsl(var(--foreground))'),
                                 }}
                             >
                               {folder.label}
                             </span>
                           </div>
-                          {hoveredFolder === folder.id && (
-                            <motion.div
-                              className="absolute inset-0 rounded-xl opacity-20"
-                              style={{
-                                background: 'linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.3), transparent)',
-                              }}
-                              animate={{
-                                backgroundPosition: ['200% 50%', '-100% 50%'],
-                              }}
-                              transition={{
-                                duration: 1.5,
-                                repeat: Infinity,
-                                repeatType: 'loop',
-                              }}
-                            />
-                          )}
+
+                            {/* Shine effect on hover */}
+                            {hoveredFolder === folder.id && (
+                              <motion.div
+                                className="absolute inset-0 rounded-md overflow-hidden"
+                                initial={{ x: '-100%' }}
+                                animate={{ x: '100%' }}
+                                transition={{
+                                  duration: 0.6,
+                                  repeat: Infinity,
+                                  repeatDelay: 1.5,
+                                }}
+                              >
+                                <div 
+                                  className="w-full h-full"
+                                  style={{
+                                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
+                                  }}
+                                />
+                              </motion.div>
+                            )}
                         </motion.div>
                       </motion.button>
                     </motion.div>
-                  ))}
+                    );
+                  })}
                 </div>
+
+                {/* Bottom decorative element */}
+                <motion.div
+                  className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex items-center gap-0.5"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1.3 }}
+                >
+                  <div className="w-0.5 h-0.5 rounded-full bg-primary/50" />
+                  <div className="w-0.5 h-0.5 rounded-full bg-secondary/50" />
+                  <div className="w-0.5 h-0.5 rounded-full bg-primary/50" />
+                </motion.div>
               </div>
 
 

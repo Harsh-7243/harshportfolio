@@ -1,26 +1,51 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { Moon, Sun, Menu, X, Home, User, Briefcase, Award, Mail, Building2 } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const Navbar = ({ isDark, toggleTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
   const navItems = [
-    { name: "Home", href: "#" },
-    { name: "About", href: "#about" },
-    { name: "Projects", href: "#projects" },
-    { name: "Certifications", href: "#certifications" },
-    { name: "Gallery", href: "#gallery" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "#", icon: Home },
+    { name: "About", href: "#about", icon: User },
+    { name: "Projects", href: "#projects", icon: Briefcase },
+    { name: "Experience", href: "#experience", icon: Building2 },
+    { name: "Certifications", href: "#certifications", icon: Award },
+    { name: "Contact", href: "#contact", icon: Mail },
   ];
 
-  // Handle scroll effect for navbar
+  // Handle scroll effect for navbar and active section
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
+      
+      // Determine active section based on scroll position
+      const sectionIds = ["#about", "#projects", "#experience", "#certifications", "#contact"];
+      const sections = sectionIds.map(id => {
+        const element = document.querySelector(id);
+        return element ? { id, element } : null;
+      }).filter(Boolean);
+
+      const scrollPosition = window.scrollY + 100;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (section && section.element.offsetTop <= scrollPosition) {
+          setActiveSection(section.id);
+          return;
+        }
+      }
+
+      // If at top, set home as active
+      if (window.scrollY < 100) {
+        setActiveSection("#");
+      }
     };
+
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Call once to set initial state
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -30,7 +55,7 @@ const Navbar = ({ isDark, toggleTheme }) => {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40 shadow-sm supports-[backdrop-filter]:bg-background/60 transition-all duration-300 overflow-x-hidden ${
+        className={`fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40 shadow-sm supports-[backdrop-filter]:bg-background/60 transition-all duration-300 overflow-visible ${
           isScrolled ? 'py-0' : 'py-1'
         }`}
       >
@@ -58,18 +83,55 @@ const Navbar = ({ isDark, toggleTheme }) => {
               </motion.a>
             </motion.div>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center justify-center flex-1 space-x-1.5">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="px-3 py-2.5 text-sm sm:text-base font-medium text-foreground/90 hover:text-foreground hover:bg-accent/50 rounded-lg transition-colors active:bg-accent/70"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.name}
-                </a>
-              ))}
+            {/* Desktop Navigation - Icons Only */}
+            <div className="hidden md:flex items-center justify-center flex-1 space-x-2">
+              {navItems.map((item) => {
+                const IconComponent = item.icon;
+                const isActive = activeSection === item.href;
+                return (
+                  <motion.a
+                    key={item.name}
+                    href={item.href}
+                    className="relative group z-50"
+                    onClick={(e) => {
+                      setIsOpen(false);
+                      if (item.href.startsWith('#')) {
+                        e.preventDefault();
+                        const element = document.querySelector(item.href);
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }
+                    }}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <div
+                      className={`relative p-2.5 rounded-lg transition-all duration-300 ${
+                        isActive
+                          ? 'bg-primary/20 text-primary'
+                          : 'text-foreground/70 hover:text-foreground hover:bg-accent/50'
+                      }`}
+                    >
+                      <IconComponent className="w-5 h-5" />
+                      {isActive && (
+                        <motion.div
+                          className="absolute inset-0 rounded-lg bg-primary/10"
+                          layoutId="activeNav"
+                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                        />
+                      )}
+                    </div>
+                    {/* Tooltip - Below Icon */}
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none" style={{ zIndex: 9999 }}>
+                      <div className="bg-foreground text-background text-xs font-medium px-2 py-1 rounded whitespace-nowrap shadow-lg">
+                        {item.name}
+                        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-b-foreground"></div>
+                      </div>
+                    </div>
+                  </motion.a>
+                );
+              })}
             </div>
 
             {/* Theme Toggle & Mobile Menu */}

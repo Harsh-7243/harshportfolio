@@ -15,9 +15,30 @@ const Projects = () => {
   useEffect(() => {
     const fetchRepos = async () => {
       try {
-        const response = await fetch('https://api.github.com/users/Harsh-7243/repos?sort=updated&per_page=6');
+        // Fetch more repos from GitHub (up to 30 to get a good selection)
+        const response = await fetch('https://api.github.com/users/iharshkumar/repos?sort=updated&per_page=30');
         const data = await response.json();
-        setRepos(data);
+        
+        // Filter out forks if needed, and ensure we have valid repos
+        const validRepos = data.filter(repo => repo && !repo.fork);
+        
+        // Sort repos: projects with live demo (homepage) first, then by stars, then by updated date
+        const sortedRepos = validRepos.sort((a, b) => {
+          // Priority 1: Projects with homepage (live demo) come first
+          if (a.homepage && !b.homepage) return -1;
+          if (!a.homepage && b.homepage) return 1;
+          
+          // Priority 2: If both have or both don't have homepage, sort by stars
+          if (a.stargazers_count !== b.stargazers_count) {
+            return b.stargazers_count - a.stargazers_count;
+          }
+          
+          // Priority 3: If stars are equal, maintain updated date order (newest first)
+          return new Date(b.updated_at) - new Date(a.updated_at);
+        });
+        
+        // Take only the top 6 projects for display
+        setRepos(sortedRepos.slice(0, 6));
       } catch (error) {
         console.error('Error fetching repos:', error);
       } finally {
@@ -149,7 +170,7 @@ const Projects = () => {
             className="rounded-full w-full sm:w-auto h-11 sm:h-12 text-sm sm:text-base"
           >
             <a 
-              href="https://github.com/Harsh-7243" 
+              href="https://github.com/iharshkumar" 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center justify-center px-6"

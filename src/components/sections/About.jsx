@@ -1,15 +1,14 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { GraduationCap, Award, Code2, Lightbulb, Mail, Github, Linkedin, FileText, Download } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { GraduationCap, Award, Code2, Lightbulb } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import ProfileCard from "@/components/ProfileCard";
 
 const About = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [activeTab, setActiveTab] = useState('about');
-  const [isHovered, setIsHovered] = useState(false);
 
   const education = [
     {
@@ -164,7 +163,7 @@ const About = () => {
             </Card>
           </motion.div>
 
-          {/* Right Column - Profile Image */}
+          {/* Right Column - Profile Card */}
           <motion.div 
             className="relative h-full"
             initial={{ opacity: 0, y: 20 }}
@@ -172,77 +171,13 @@ const About = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <div className="sticky top-24">
-              <div className="relative group h-full rounded-2xl overflow-hidden border-2 border-border/50 shadow-xl hover:shadow-primary/20 transition-all duration-500">
-                <img
-                  src="/images/me.jpeg"
-                  alt="Harsh Kumar - Developer & Creator"
-                  width={400}
-                  height={600}
-                  className="w-full h-full object-cover object-center"
-                  loading="eager"
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
-                />
-                <div className={`absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent ${isHovered ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500 flex flex-col justify-end p-6`}>
-                  <motion.div 
-                    className="transform translate-y-6 group-hover:translate-y-0 transition-all duration-500 text-center"
-                    initial={{ y: 20 }}
-                  >
-                    <h3 className="text-2xl font-bold text-foreground mb-1">Harsh Kumar</h3>
-                    <p className="text-primary font-medium">Developer & Creator</p>
-                    <div className="flex justify-center gap-4 mt-4">
-                      <a href="#" className="p-2 rounded-full bg-background/80 hover:bg-background text-foreground transition-colors">
-                        <Github className="w-5 h-5" />
-                      </a>
-                      <a href="#" className="p-2 rounded-full bg-background/80 hover:bg-background text-foreground transition-colors">
-                        <Linkedin className="w-5 h-5" />
-                      </a>
-                      <a href="#" className="p-2 rounded-full bg-background/80 hover:bg-background text-foreground transition-colors">
-                        <Mail className="w-5 h-5" />
-                      </a>
-                    </div>
-                  </motion.div>
-                </div>
-              </div>
-
-              {/* Resume Actions */}
-              <div className="mt-8 space-y-4">
-                <h3 className="text-lg font-semibold text-foreground">My Resume</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full"
-                  >
-                    <Button 
-                      variant="outline" 
-                      className="w-full h-16 border-2 border-primary/20 hover:border-primary/40 hover:bg-accent/10 transition-colors"
-                      onClick={() => window.open('/Harsh_Kumar_Resume.pdf', '_blank')}
-                    >
-                      <FileText className="w-5 h-5 mr-2" />
-                      Preview Resume
-                    </Button>
-                  </motion.div>
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full"
-                  >
-                    <Button 
-                      className="w-full h-16 bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white"
-                      onClick={() => {
-                        const link = document.createElement('a');
-                        link.href = '/Harsh_Kumar_Resume.pdf';
-                        link.download = 'Harsh_Kumar_Resume.pdf';
-                        link.click();
-                      }}
-                    >
-                      <Download className="w-5 h-5 mr-2" />
-                      Download CV
-                    </Button>
-                  </motion.div>
-                </div>
-              </div>
+              <ProfileCard
+                image="/images/me.jpeg"
+                name="Harsh Kumar"
+                title="Developer & Creator"
+                location="Bengaluru, India"
+                resumePath="/Harsh_Kumar_Resume.pdf"
+              />
             </div>
           </motion.div>
         </div>
